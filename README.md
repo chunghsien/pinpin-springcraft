@@ -14,7 +14,27 @@
 
 # 🚀 Spring Boot API Mastery (PostgreSQL + Redis + JWT)
 
-打造一套實戰級的 Spring Boot API 系統，涵蓋資料庫操作、認證授權、快取優化、Docker 化部署，學習最接近生產環境的開發技能。
+打造一套實戰級的 Spring Boot API 系統，涵蓋資料庫操作、認證授權、快取優化、Docker 化部署，學習最接近生產環境的開發技能 。
+
+---
+
+## 📅 **專案 Milestone 設定**
+
+### 🗂️ Milestone 1：專案初始化與環境建置
+
+*
+
+### 🗂️ Milestone 2：認證機制與基本 CRUD 開發
+
+*
+
+### 🗂️ Milestone 3：產品模組與 Redis 快取實作
+
+*
+
+### 🗂️ Milestone 4：測試與部署
+
+*
 
 ---
 
@@ -62,8 +82,8 @@
 
 ```bash
 # 1. Clone 專案
-git clone https://github.com/yourname/spring-boot-api-mastery.git
-cd spring-boot-api-mastery
+git clone https://github.com/chunghsien/pinpin-springcraft.git
+cd pinpin-springcraft
 
 # 2. 啟動 PostgreSQL + Redis + App
 docker-compose up --build
