@@ -2,11 +2,11 @@
 
 ### ⏰ **每日時間建議**
 
-| 模式 | 每日時間   | 完成週期 |
-| -- | ------ | ---- |
-| 輕量 | 1～2 小時 | 12 週 |
-| 標準 | 3～4 小時 | 6 週  |
-| 強化 | 6 小時以上 | 4 週  |
+| 模式 | 每日時間   | 完成週期 | 適合族群        |
+| -- | ------ | ---- | ----------- |
+| 輕量 | 1～2 小時 | 12 週 | 上班族 / 繁忙學習者 |
+| 標準 | 3～4 小時 | 6 週  | 學生 / 穩定學習者  |
+| 強化 | 6 小時以上 | 4 週  | 全職學習者 / 轉職者 |
 
 > 建議平日輕量、週末補強，依自身狀況調整。
 
@@ -14,7 +14,7 @@
 
 # 🚀 Spring Boot API Mastery (PostgreSQL + Redis + JWT)
 
-打造一套實戰級的 Spring Boot API 系統，涵蓋資料庫操作、認證授權、快取優化、Docker 化部署，學習最接近生產環境的開發技能 。
+打造一套實戰級的 Spring Boot API 系統，涵蓋資料庫操作、認證授權、快取優化、Docker 化部署，學習最接近生產環境的開發技能。
 
 ---
 
@@ -22,19 +22,19 @@
 
 ### 🗂️ Milestone 1：專案初始化與環境建置
 
-*
+* 完成基本開發環境配置與技術選型。
 
 ### 🗂️ Milestone 2：認證機制與基本 CRUD 開發
 
-*
+* 實現 JWT 登入註冊與基本資料操作 API。
 
 ### 🗂️ Milestone 3：產品模組與 Redis 快取實作
 
-*
+* 完成產品模組 API，整合 Redis 快取與壓力測試。
 
 ### 🗂️ Milestone 4：測試與部署
 
-*
+* 撰寫單元測試、整合自動化部署流程與生產環境驗證。
 
 ---
 
@@ -92,6 +92,8 @@ docker-compose up --build
 http://localhost:8080/swagger-ui.html
 ```
 
+> 📌 如需自訂環境變數，請參考 `.env.example` 檔案建立 `.env`。
+
 ---
 
 ## 📖 API 認證流程
@@ -127,11 +129,21 @@ services:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "root"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   redis:
     image: redis:latest
     ports:
       - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   app:
     build: .
@@ -154,6 +166,11 @@ volumes:
 public List<Product> getProductsByCategory(String category) {
     return productRepository.findByCategory(category);
 }
+
+@CacheEvict(value = "products", key = "#category")
+public void invalidateProductCache(String category) {
+    // 快取清除邏輯
+}
 ```
 
 ---
@@ -164,6 +181,7 @@ public List<Product> getProductsByCategory(String category) {
 * [Spring Initializr](https://start.spring.io/)
 * YouTube：Amigoscode / Telusko
 * 書籍：《Spring in Action》第五版
+* 範例專案：[GitHub - Spring Boot API Mastery](https://github.com/chunghsien/pinpin-springcraft)
 
 ---
 
